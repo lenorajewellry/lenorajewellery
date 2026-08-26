@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>LENORA Admin</title>
+
+<style>
+
+:root{
+  --burgundy:#641f34;
+  --pink:#f7dfe5;
+  --cream:#fffaf5;
+  --beige:#f4ecdf;
+  --ink:#2d2226;
+  --muted:#76676b;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:Arial,sans-serif;
+}
+
+header{
+  background:var(--burgundy);
+  color:white;
+  padding:22px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  letter-spacing:5px;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:25px 16px 60px;
+}
+
+.login{
+  max-width:420px;
+  margin:70px auto;
+  background:white;
+  padding:30px;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.login h2{
+  text-align:center;
+  color:var(--burgundy);
+}
+
+input,
+select{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin:7px 0 14px;
+  font-size:16px;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  border-radius:12px;
+  padding:12px 18px;
+  font-size:15px;
+}
+
+.primary{
+  background:var(--burgundy);
+  color:white;
+}
+
+.logout{
+  background:white;
+  color:var(--burgundy);
+  float:left;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.panel{
+  background:white;
+  padding:22px;
+  border-radius:22px;
+  margin-bottom:22px;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.panel h2{
+  color:var(--burgundy);
+}
+
+.products{
+  display:grid;
+  gap:18px;
+}
+
+.product{
+  border:1px solid #eee;
+  border-radius:18px;
+  padding:15px;
+}
+
+.product-top{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.preview{
+  width:100px;
+  height:100px;
+  flex-shrink:0;
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--beige);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.preview span{
+  color:var(--burgundy);
+  font-size:30px;
+}
+
+.product-fields{
+  flex:1;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.save{
+  background:var(--burgundy);
+  color:white;
+}
+
+.delete{
+  background:#eee;
+  color:#9b1c1c;
+}
+
+.add{
+  background:var(--pink);
+  color:var(--burgundy);
+}
+
+.status{
+  margin:10px 0;
+  padding:10px;
+  border-radius:10px;
+  background:var(--beige);
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.tabs button{
+  background:var(--beige);
+  color:var(--burgundy);
+}
+
+@media(max-width:600px){
+
+  .product-top{
+    align-items:flex-start;
+  }
+
+  .preview{
+    width:80px;
+    height:80px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>LENORA</h1>
+
+<div>ADMIN PANEL</div>
+
+<button
+id="logoutBtn"
+class="logout hidden"
+onclick="logout()">
+Logout
+</button>
+
+</header>
+
+
+<div id="loginScreen" class="login">
+
+<h2>LENORA ADMIN</h2>
+
+<p>
+دخلي بالإيميل وكلمة المرور اللي سويتيهم في Supabase.
+</p>
+
+<input
+id="email"
+type="email"
+placeholder="Email">
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+<button
+class="primary"
+style="width:100%"
+onclick="login()">
+Login
+</button>
+
+<div id="loginMessage"></div>
+
+</div>
+
+
+<div id="adminScreen"
+class="container hidden">
+
+
+<div class="panel">
+
+<h2>إضافة منتج جديد</h2>
+
+<label>القسم</label>
+
+<select id="newCategory">
+
+<option value="hand-chains">
+Hand Chains
+</option>
+
+<option value="bracelets">
+Bracelets
+</option>
+
+<option value="necklaces">
+Necklaces
+</option>
+
+<option value="rings">
+Rings
+</option>
+
+<option value="earrings">
+Earrings
+</option>
+
+</select>
+
+
+<label>اسم المنتج</label>
+
+<input
+id="newName"
+placeholder="مثلاً Necklace 05">
+
+
+<label>صورة المنتج</label>
+
+<input
+id="newImage"
+type="file"
+accept="image/*">
+
+
+<button
+class="add"
+onclick="addProduct()">
++ Add Product
+</button>
+
+<div id="addStatus"></div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>المنتجات</h2>
+
+<div class="tabs">
+
+<button onclick="loadAdminProducts('all')">
+All
+</button>
+
+<button onclick="loadAdminProducts('hand-chains')">
+Hand Chains
+</button>
+
+<button onclick="loadAdminProducts('bracelets')">
+Bracelets
+</button>
+
+<button onclick="loadAdminProducts('necklaces')">
+Necklaces
+</button>
+
+<button onclick="loadAdminProducts('rings')">
+Rings
+</button>
+
+<button onclick="loadAdminProducts('earrings')">
+Earrings
+</button>
+
+</div>
+
+<div id="adminProducts" class="products">
+Loading...
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>Instagram</h2>
+
+<input
+id="instagram"
+placeholder="Instagram URL">
+
+<button
+class="save"
+onclick="saveInstagram()">
+Save Instagram
+</button>
+
+<div id="instagramStatus"></div>
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://bzsaekavtectmmypvgpm.supabase.co/rest/v1/";
+
+const SUPABASE_KEY =
+"sb_publishable_aB5bpaLTCQGslGntrEPsDA_Owbtm3Jn";
+
+
+const db =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+let currentCategory = "all";
+
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+  message.textContent="جاري الدخول...";
+
+
+  const {error} =
+    await db.auth.signInWithPassword({
+      email,
+      password
+    });
+
+
+  if(error){
+
+    message.textContent =
+      "الإيميل أو كلمة المرور غير صحيحة.";
+
+    return;
+  }
+
+
+  showAdmin();
+
+}
+
+
+async function logout(){
+
+  await db.auth.signOut();
+
+  location.reload();
+
+}
+
+
+function showAdmin(){
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("adminScreen")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("logoutBtn")
+    .classList.remove("hidden");
+
+  loadAdminProducts("all");
+
+  loadInstagram();
+
+}
+
+
+async function checkSession(){
+
+  const {
+    data
+  } = await db.auth.getSession();
+
+  if(data.session){
+
+    showAdmin();
+
+  }
+
+}
+
+
+async function uploadImage(file){
+
+  if(!file) return "";
+
+  const extension =
+    file.name.split(".").pop();
+
+  const filename =
+    crypto.randomUUID() +
+    "." +
+    extension;
+
+  const path =
+    filename;
+
+
+  const {
+    error
+  } = await db.storage
+    .from("product-images")
+    .upload(path,file,{
+      cacheControl:"3600",
+      upsert:false
+    });
+
+
+  if(error){
+
+    console.error(error);
+
+    throw new Error(
+      "الصورة ما ترفعت."
+    );
+
+  }
+
+
+  const {
+    data
+  } = db.storage
+    .from("product-images")
+    .getPublicUrl(path);
+
+
+  return data.publicUrl;
+
+}
+
+
+async function addProduct(){
+
+  const category =
+    document.getElementById("newCategory").value;
+
+  const name =
+    document.getElementById("newName").value.trim();
+
+  const file =
+    document.getElementById("newImage").files[0];
+
+  const status =
+    document.getElementById("addStatus");
+
+
+  if(!name){
+
+    status.textContent =
+      "اكتبي اسم المنتج أول.";
+
+    return;
+  }
+
+
+  status.textContent =
+    "جاري الإضافة...";
+
+
+  try{
+
+    let imageUrl = "";
+
+    if(file){
+      imageUrl =
+        await uploadImage(file);
+    }
+
+
+    const {
+      data:existing
+    } = await db
+      .from("products")
+      .select("sort_order")
+      .eq("category",category)
+      .order("sort_order",{
+        ascending:false
+      })
+      .limit(1);
+
+
+    const nextOrder =
+      existing && existing.length
+      ? Number(existing[0].sort_order)+1
+      : 1;
+
+
+    const {
+      error
+    } = await db
+      .from("products")
+      .insert({
+        category,
+        name,
+        image_url:imageUrl,
+        sort_order:nextOrder,
+
+        /* Instagram الصحيح */
+        link:"https://www.instagram.com/lenorajewellery_/"
+
+      });
+
+
+    if(error){
+      throw error;
+    }
+
+
+    status.textContent =
+      "تمت إضافة المنتج 🤍";
+
+
+    document.getElementById("newName").value="";
+    document.getElementById("newImage").value="";
+
+    loadAdminProducts(currentCategory);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    status.textContent =
+      "صار خطأ أثناء الإضافة.";
+
+  }
+
+}
+
+
+async function loadAdminProducts(category){
+
+  currentCategory = category;
+
+  const container =
+    document.getElementById("adminProducts");
+
+  container.innerHTML =
+    "Loading...";
+
+
+  let query =
+    db
+      .from("products")
+      .select("*")
+      .order("category")
+      .order("sort_order");
+
+
+  if(category !== "all"){
+
+    query =
+      query.eq("category",category);
+
+  }
+
+
+  const {
+    data,
+    error
+  } = await query;
+
+
+  if(error){
+
+    container.innerHTML =
+      "Unable to load products.";
+
+    console.error(error);
+
+    return;
+  }
+
+
+  container.innerHTML="";
+
+
+  if(!data.length){
+
+    container.innerHTML =
+      "No products.";
+
+    return;
+  }
+
+
+  data.forEach(product=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className="product";
+
+
+    div.innerHTML = `
+
+      <div class="product-top">
+
+        <div class="preview">
+
+          ${
+            product.image_url
+
+            ? `<img src="${escapeHTML(product.image_url)}">`
+
+            : `<span>✦</span>`
+          }
+
+        </div>
+
+
+        <div class="product-fields">
+
+          <label>اسم المنتج</label>
+
+          <input
+            id="name-${product.id}"
+            value="${escapeHTML(product.name)}">
+
+          <label>القسم</label>
+
+          <select id="category-${product.id}">
+
+            ${categoryOption(
+              "hand-chains",
+              "Hand Chains",
+              product.category
+            )}
+
+            ${categoryOption(
+              "bracelets",
+              "Bracelets",
+              product.category
+            )}
+
+            ${categoryOption(
+              "necklaces",
+              "Necklaces",
+              product.category
+            )}
+
+            ${categoryOption(
+              "rings",
+              "Rings",
+              product.category
+            )}
+
+            ${categoryOption(
+              "earrings",
+              "Earrings",
+              product.category
+            )}
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="actions">
+
+        <label class="add">
+          Change Image
+
+          <input
+            id="file-${product.id}"
+            type="file"
+            accept="image/*"
+            style="display:none">
+
+        </label>
+
+
+        <button
+          class="save"
+          onclick="saveProduct('${product.id}')">
+          Save
+        </button>
+
+
+        <button
+          class="delete"
+          onclick="deleteProduct('${product.id}')">
+          Delete
+        </button>
+
+      </div>
+
+      <div id="status-${product.id}"></div>
+
+    `;
+
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+function categoryOption(
+  value,
+  label,
+  selected
+){
+
+  return `
+    <option
+      value="${value}"
+      ${value===selected ? "selected":""}>
+      ${label}
+    </option>
+  `;
+
+}
+
+
+async function saveProduct(id){
+
+  const name =
+    document.getElementById(
+      `name-${id}`
+    ).value.trim();
+
+
+  const category =
+    document.getElementById(
+      `category-${id}`
+    ).value;
+
+
+  const file =
+    document.getElementById(
+      `file-${id}`
+    ).files[0];
+
+
+  const status =
+    document.getElementById(
+      `status-${id}`
+    );
+
+
+  status.textContent =
+    "Saving...";
+
+
+  try{
+
+    const update = {
+      name,
+      category,
+
+      /* Instagram الصحيح */
+      link:"https://www.instagram.com/lenorajewellery_/"
+
+    };
+
+
+    if(file){
+
+      update.image_url =
+        await uploadImage(file);
+
+    }
+
+
+    const {
+      error
+    } = await db
+      .from("products")
+      .update(update)
+      .eq("id",id);
+
+
+    if(error){
+      throw error;
+    }
+
+
+    status.textContent =
+      "Saved ✓";
+
+
+    setTimeout(()=>{
+      loadAdminProducts(currentCategory);
+    },500);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    status.textContent =
+      "حدث خطأ أثناء الحفظ.";
+
+  }
+
+}
+
+
+async function deleteProduct(id){
+
+  const confirmDelete =
+    confirm(
+      "متأكدة تبين تحذفين هالمنتج؟"
+    );
+
+
+  if(!confirmDelete) return;
+
+
+  const {
+    error
+  } = await db
+    .from("products")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "ما قدرنا نحذف المنتج."
+    );
+
+    console.error(error);
+
+    return;
+  }
+
+
+  loadAdminProducts(currentCategory);
+
+}
+
+
+async function loadInstagram(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("site_settings")
+    .select("*")
+    .eq("key","instagram")
+    .maybeSingle();
+
+
+  if(!error && data){
+
+    document
+      .getElementById("instagram")
+      .value=data.value;
+
+  }else{
+
+    document
+      .getElementById("instagram")
+      .value="https://www.instagram.com/lenorajewellery_/";
+
+  }
+
+}
+
+
+async function saveInstagram(){
+
+  let value =
+    document
+      .getElementById("instagram")
+      .value.trim();
+
+
+  /* إذا تركتيه فاضي، نستخدم حساب LENORA الصحيح */
+  if(!value){
+    value =
+      "https://www.instagram.com/lenorajewellery_/";
+  }
+
+
+  const {
+    error
+  } = await db
+    .from("site_settings")
+    .upsert({
+      key:"instagram",
+      value
+    });
+
+
+  const status =
+    document.getElementById(
+      "instagramStatus"
+    );
+
+
+  if(error){
+
+    status.textContent =
+      "صار خطأ.";
+
+    console.error(error);
+
+  }else{
+
+    status.textContent =
+      "تم الحفظ ✓";
+
+  }
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+checkSession();
+
+</script>
+
+</body>
+</html>
