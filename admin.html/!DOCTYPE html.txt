@@ -385,10 +385,10 @@ Save Instagram
 <script>
 
 const SUPABASE_URL =
-"PUT_YOUR_SUPABASE_URL_HERE";
+"https://bzsaekavtectmmypvgpm.supabase.co/rest/v1/";
 
 const SUPABASE_KEY =
-"PUT_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+"sb_publishable_aB5bpaLTCQGslGntrEPsDA_Owbtm3Jn";
 
 
 const db =
