@@ -893,7 +893,7 @@ Jewellery made for your everyday elegance ✦
 <script>
 
 const SUPABASE_URL =
-"PUT_YOUR_SUPABASE_URL_HERE";
+"https://bzsaekavtectmmypvgpm.supabase.co/rest/v1/";
 
 
 const SUPABASE_KEY =
