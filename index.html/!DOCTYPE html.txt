@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LENORA Jewellery</title>
+
+<style>
+
+:root{
+  --burgundy:#641f34;
+  --pink:#f7dfe5;
+  --blue:#dcecf5;
+  --beige:#f4ecdf;
+  --cream:#fffaf5;
+  --ink:#2d2226;
+  --muted:#76676b;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+}
+
+button{
+  font:inherit;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(255,250,245,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(100,31,52,.1);
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:15px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  color:var(--burgundy);
+  font-size:27px;
+  font-weight:bold;
+  letter-spacing:5px;
+  cursor:pointer;
+}
+
+.menu{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.menu button{
+  border:0;
+  background:transparent;
+  padding:9px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  color:var(--ink);
+}
+
+.menu button:hover{
+  background:var(--pink);
+  color:var(--burgundy);
+}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:none;
+  font-size:25px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  min-height:calc(100vh - 70px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:50px 20px;
+  background:
+    radial-gradient(circle at center,#fff 0,#fff7f1 35%,var(--beige) 100%);
+}
+
+.brand{
+  margin:0;
+  color:var(--burgundy);
+  font-size:clamp(60px,13vw,150px);
+  letter-spacing:10px;
+  font-weight:500;
+}
+
+.eyebrow{
+  color:var(--burgundy);
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  letter-spacing:3px;
+  margin-bottom:18px;
+}
+
+.welcome{
+  font-size:25px;
+  margin-top:25px;
+}
+
+.welcome-en{
+  color:var(--muted);
+  margin-top:8px;
+  font-size:16px;
+  direction:ltr;
+}
+
+.actions{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:1px solid var(--burgundy);
+  padding:13px 24px;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+.primary{
+  background:var(--burgundy);
+  color:white;
+}
+
+.secondary{
+  background:white;
+  color:var(--burgundy);
+}
+
+.section{
+  max-width:1200px;
+  margin:auto;
+  padding:70px 20px;
+}
+
+.title{
+  text-align:center;
+  color:var(--burgundy);
+  font-size:clamp(35px,6vw,55px);
+  font-weight:500;
+  margin:0 0 10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  font-family:Arial,sans-serif;
+  line-height:1.8;
+  margin:0 auto 40px;
+  max-width:700px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
+}
+
+.category{
+  border:0;
+  border-radius:24px;
+  min-height:180px;
+  cursor:pointer;
+  color:var(--burgundy);
+  transition:.25s;
+}
+
+.category:hover{
+  transform:translateY(-5px);
+}
+
+.category:nth-child(1){
+  background:var(--pink);
+}
+
+.category:nth-child(2){
+  background:var(--blue);
+}
+
+.category:nth-child(3){
+  background:var(--beige);
+}
+
+.category:nth-child(4){
+  background:#f0dce3;
+}
+
+.category:nth-child(5){
+  background:#e9edf3;
+}
+
+.category h3{
+  font-size:20px;
+  direction:ltr;
+}
+
+.category span{
+  font-size:30px;
+}
+
+.category p{
+  font-family:Arial,sans-serif;
+  font-size:12px;
+}
+
+.category-hero{
+  text-align:center;
+  padding:70px 20px 40px;
+  background:linear-gradient(135deg,var(--pink),var(--cream),var(--blue));
+}
+
+.category-hero h1{
+  margin:0;
+  color:var(--burgundy);
+  font-size:clamp(40px,7vw,70px);
+  font-weight:500;
+  direction:ltr;
+}
+
+.category-hero p{
+  color:var(--muted);
+  font-family:Arial,sans-serif;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.product{
+  background:white;
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 8px 28px rgba(70,30,40,.08);
+  text-decoration:none;
+  color:inherit;
+}
+
+.product-image{
+  aspect-ratio:1/1;
+  background:var(--beige);
+  overflow:hidden;
+}
+
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.no-image{
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:var(--burgundy);
+  font-family:Arial,sans-serif;
+}
+
+.no-image span{
+  font-size:35px;
+}
+
+.product-name{
+  text-align:center;
+  padding:17px 10px;
+  font-size:17px;
+  direction:ltr;
+}
+
+.info{
+  background:var(--beige);
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.feature{
+  background:rgba(255,255,255,.7);
+  padding:28px;
+  border-radius:24px;
+}
+
+.feature h3{
+  color:var(--burgundy);
+}
+
+.feature p{
+  font-family:Arial,sans-serif;
+  line-height:2;
+  color:#51464a;
+}
+
+.order-box{
+  max-width:700px;
+  margin:auto;
+  background:white;
+  border-radius:30px;
+  padding:40px 25px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(72,33,43,.1);
+}
+
+.instagram{
+  display:inline-block;
+  background:var(--burgundy);
+  color:white;
+  padding:14px 25px;
+  border-radius:999px;
+  text-decoration:none;
+}
+
+footer{
+  background:var(--burgundy);
+  color:white;
+  text-align:center;
+  padding:35px 20px;
+}
+
+footer p{
+  font-family:Arial,sans-serif;
+  opacity:.8;
+}
+
+.loading{
+  text-align:center;
+  color:var(--muted);
+  font-family:Arial,sans-serif;
+  padding:30px;
+}
+
+@media(max-width:900px){
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:700px){
+
+  .menu-btn{
+    display:block;
+  }
+
+  .menu{
+    display:none;
+    position:absolute;
+    top:65px;
+    left:12px;
+    right:12px;
+    background:var(--cream);
+    border-radius:20px;
+    padding:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+    flex-direction:column;
+  }
+
+  .menu.open{
+    display:flex;
+  }
+
+  .menu button{
+    width:100%;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .section{
+    padding:55px 16px;
+  }
+
+}
+
+@media(max-width:430px){
+
+  .categories{
+    grid-template-columns:1fr;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .product-name{
+    font-size:14px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<header>
+
+<nav class="nav">
+
+<div
+class="logo"
+onclick="showPage('home')">
+
+LENORA
+
+</div>
+
+
+<button
+class="menu-btn"
+onclick="toggleMenu()">
+
+☰
+
+</button>
+
+
+<div
+class="menu"
+id="menu">
+
+<button
+onclick="showPage('home')">
+
+Home
+
+</button>
+
+
+<button
+onclick="showCategory('hand-chains')">
+
+Hand Chains
+
+</button>
+
+
+<button
+onclick="showCategory('bracelets')">
+
+Bracelets
+
+</button>
+
+
+<button
+onclick="showCategory('necklaces')">
+
+Necklaces
+
+</button>
+
+
+<button
+onclick="showCategory('rings')">
+
+Rings
+
+</button>
+
+
+<button
+onclick="showCategory('earrings')">
+
+Earrings
+
+</button>
+
+
+<button
+onclick="showPage('different')">
+
+What Makes LENORA Different?
+
+</button>
+
+
+<button
+onclick="showPage('order')">
+
+Order
+
+</button>
+
+</div>
+
+</nav>
+
+</header>
+
+
+<main>
+
+
+<section
+id="home"
+class="page active">
+
+<div class="hero">
+
+<div>
+
+<div class="eyebrow">
+
+JEWELLERY • ELEGANCE • EVERYDAY
+
+</div>
+
+
+<h1 class="brand">
+
+LENORA
+
+</h1>
+
+
+<div class="welcome">
+
+أهلًا بكِ في لينورا 🤍
+
+</div>
+
+
+<div class="welcome-en">
+
+Welcome to LENORA 🤍
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="btn primary"
+onclick="showCategory('necklaces')">
+
+Explore Jewellery
+
+</button>
+
+
+<button
+class="btn secondary"
+onclick="showPage('different')">
+
+Discover LENORA
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2 class="title">
+
+Shop LENORA
+
+</h2>
+
+
+<p class="subtitle">
+
+اختاري مجموعتك المفضلة واكتشفي قطع لينورا الناعمة المصممة لتكون جزءًا من يومك.
+
+</p>
+
+
+<div class="categories">
+
+<button
+class="category"
+onclick="showCategory('hand-chains')">
+
+<span>✦</span>
+
+<h3>Hand Chains</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+
+<button
+class="category"
+onclick="showCategory('bracelets')">
+
+<span>✧</span>
+
+<h3>Bracelets</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+
+<button
+class="category"
+onclick="showCategory('necklaces')">
+
+<span>✦</span>
+
+<h3>Necklaces</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+
+<button
+class="category"
+onclick="showCategory('rings')">
+
+<span>✧</span>
+
+<h3>Rings</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+
+<button
+class="category"
+onclick="showCategory('earrings')">
+
+<span>✦</span>
+
+<h3>Earrings</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+id="category-page"
+class="page">
+
+<div class="category-hero">
+
+<h1 id="category-title">
+
+Jewellery
+
+</h1>
+
+
+<p id="category-description">
+
+Delicate pieces made for your everyday moments.
+
+</p>
+
+</div>
+
+
+<div class="section">
+
+<div
+id="products"
+class="products">
+
+<div class="loading">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+id="different"
+class="page info">
+
+<div class="section">
+
+<h1 class="title">
+
+ما الذي يميّز لينورا؟
+
+</h1>
+
+
+<p class="subtitle">
+
+What Makes Lenora Different?
+
+</p>
+
+
+<div class="features">
+
+<article class="feature">
+
+<h3>
+جودة تدوم في استخدامك اليومي
+</h3>
+
+<p>
+نختار مجوهراتنا بعناية من الستانلس ستيل ونسكب عليها طلاء الذهب، لتتحمّل روتينك اليومي وتظل محتفظة برونقها ولونها.
+</p>
+
+</article>
+
+
+<article class="feature">
+
+<h3>
+اهتمام وسرعة في التوصيل
+</h3>
+
+<p>
+ندرك قيمة وقتك وحماسك لطلبك؛ لذا نلتزم بالرد السريع وتجهيز شحنتك لتصلك بأسرع وقت ممكن.
+</p>
+
+</article>
+
+
+<article class="feature">
+
+<h3>
+رأيك محركنا الأول
+</h3>
+
+<p>
+نستمع لملاحظاتك ونحرص دائماً على تلبية تطلعاتك، لأن رضاكِ الحقيقي هو المقياس الأساسي لنشاطنا.
+</p>
+
+</article>
+
+
+<article class="feature">
+
+<h3>
+قيمة حقيقية بلا مبالغة
+</h3>
+
+<p>
+نقدم لكِ قطعاً تجمع بين جمال التصميم وعملية الاستخدام، لتكون إضافة ناعمة وموثوقة لمجموعتك اليومية.
+</p>
+
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+id="order"
+class="page">
+
+<div class="section">
+
+<div class="order-box">
+
+<h1 class="title">
+
+تفاصيل الطلب
+
+</h1>
+
+
+<p>
+
+للطلب، تواصلي معنا مباشرة عن طريق إنستقرام.
+
+</p>
+
+
+<a
+id="instagram-link"
+class="instagram"
+href="https://www.instagram.com/lenorajewellery_/"
+target="_blank"
+rel="noopener">
+
+Instagram · @lenorajewellery_
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+<div
+style="font-size:28px;letter-spacing:5px">
+
+LENORA
+
+</div>
+
+
+<p>
+
+Jewellery made for your everyday elegance ✦
+
+</p>
+
+
+<p>
+
+© 2026 LENORA. All rights reserved.
+
+</p>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+
+<script>
+
+const SUPABASE_URL =
+"PUT_YOUR_SUPABASE_URL_HERE";
+
+
+const SUPABASE_KEY =
+"PUT_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+
+
+const db =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+const INSTAGRAM_URL =
+"https://www.instagram.com/lenorajewellery_/";
+
+
+const INSTAGRAM_USERNAME =
+"@lenorajewellery_";
+
+
+const categories = {
+
+  "hand-chains":{
+    title:"Hand Chains",
+    description:
+    "Delicate pieces made for your everyday moments."
+  },
+
+  "bracelets":{
+    title:"Bracelets",
+    description:
+    "Elegant bracelets for every day."
+  },
+
+  "necklaces":{
+    title:"Necklaces",
+    description:
+    "Soft details that complete your look."
+  },
+
+  "rings":{
+    title:"Rings",
+    description:
+    "Minimal, elegant pieces for every occasion."
+  },
+
+  "earrings":{
+    title:"Earrings",
+    description:
+    "Little details, effortless elegance."
+  }
+
+};
+
+
+function toggleMenu(){
+
+  document
+    .getElementById("menu")
+    .classList.toggle("open");
+
+}
+
+
+function hideAll(){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page=>{
+
+      page.classList.remove("active");
+
+    });
+
+}
+
+
+function showPage(id){
+
+  hideAll();
+
+  const page =
+    document.getElementById(id);
+
+  if(page){
+
+    page.classList.add("active");
+
+  }
+
+  document
+    .getElementById("menu")
+    .classList.remove("open");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+async function showCategory(category){
+
+  hideAll();
+
+  const page =
+    document.getElementById("category-page");
+
+  page.classList.add("active");
+
+  document
+    .getElementById("menu")
+    .classList.remove("open");
+
+  const info =
+    categories[category];
+
+  document
+    .getElementById("category-title")
+    .textContent =
+    info.title;
+
+  document
+    .getElementById("category-description")
+    .textContent =
+    info.description;
+
+  await loadProducts(category);
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+async function loadProducts(category){
+
+  const container =
+    document.getElementById("products");
+
+  container.innerHTML =
+    '<div class="loading">Loading...</div>';
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("products")
+      .select("*")
+      .eq("category",category)
+      .order(
+        "sort_order",
+        {ascending:true}
+      );
+
+
+  if(error){
+
+    container.innerHTML =
+      '<div class="loading">Unable to load products.</div>';
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  if(!data || data.length === 0){
+
+    container.innerHTML =
+      '<div class="loading">No products yet.</div>';
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  data.forEach(product=>{
+
+    const card =
+      document.createElement("a");
+
+
+    card.className =
+      "product";
+
+
+    card.href =
+      product.link ||
+      INSTAGRAM_URL;
+
+
+    card.target =
+      "_blank";
+
+
+    card.rel =
+      "noopener";
+
+
+    let imageHTML = "";
+
+
+    if(product.image_url){
+
+      imageHTML =
+        `<img
+          src="${escapeHTML(product.image_url)}"
+          alt="${escapeHTML(product.name)}">`;
+
+    }else{
+
+      imageHTML = `
+
+        <div class="no-image">
+
+          <span>✦</span>
+
+          <small>
+            Coming Soon
+          </small>
+
+        </div>
+
+      `;
+
+    }
+
+
+    card.innerHTML = `
+
+      <div class="product-image">
+
+        ${imageHTML}
+
+      </div>
+
+      <div class="product-name">
+
+        ${escapeHTML(product.name)}
+
+      </div>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+
+    .replace(/&/g,"&amp;")
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;");
+
+}
+
+
+async function loadSettings(){
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("site_settings")
+      .select("*")
+      .eq("key","instagram")
+      .maybeSingle();
+
+
+  const link =
+    document.getElementById(
+      "instagram-link"
+    );
+
+
+  if(!error && data && data.value){
+
+    link.href =
+      data.value;
+
+  }else{
+
+    link.href =
+      INSTAGRAM_URL;
+
+  }
+
+
+  link.textContent =
+    "Instagram · " +
+    INSTAGRAM_USERNAME;
+
+}
+
+
+loadSettings();
+
+</script>
+
+</body>
+
+</html>
