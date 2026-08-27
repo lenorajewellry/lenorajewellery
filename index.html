@@ -5,18 +5,18 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LENORA Admin</title>
+<title>LENORA Jewellery</title>
 
 <style>
 
 :root{
   --burgundy:#641f34;
   --pink:#f7dfe5;
-  --cream:#fffaf5;
+  --blue:#dcecf5;
   --beige:#f4ecdf;
+  --cream:#fffaf5;
   --ink:#2d2226;
   --muted:#76676b;
 }
@@ -25,61 +25,135 @@ content="width=device-width,initial-scale=1.0">
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
   background:var(--cream);
   color:var(--ink);
-  font-family:Arial,sans-serif;
-}
-
-header{
-  background:var(--burgundy);
-  color:white;
-  padding:22px;
-  text-align:center;
-}
-
-header h1{
-  margin:0;
-  letter-spacing:5px;
-}
-
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:25px 16px 60px;
-}
-
-.login{
-  max-width:420px;
-  margin:70px auto;
-  background:white;
-  padding:30px;
-  border-radius:25px;
-  box-shadow:0 15px 40px rgba(0,0,0,.08);
-}
-
-.login h2{
-  text-align:center;
-  color:var(--burgundy);
-}
-
-input,
-select{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  margin:7px 0 14px;
-  font-size:16px;
+  font-family:Georgia,"Times New Roman",serif;
 }
 
 button{
-  border:0;
+  font:inherit;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(255,250,245,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(100,31,52,.1);
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:15px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  color:var(--burgundy);
+  font-size:27px;
+  font-weight:bold;
+  letter-spacing:5px;
   cursor:pointer;
-  border-radius:12px;
-  padding:12px 18px;
-  font-size:15px;
+}
+
+.menu{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.menu button{
+  border:0;
+  background:transparent;
+  padding:9px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  color:var(--ink);
+}
+
+.menu button:hover{
+  background:var(--pink);
+  color:var(--burgundy);
+}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:none;
+  font-size:25px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  min-height:calc(100vh - 70px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:50px 20px;
+  background:
+    radial-gradient(circle at center,#fff 0,#fff7f1 35%,var(--beige) 100%);
+}
+
+.brand{
+  margin:0;
+  color:var(--burgundy);
+  font-size:clamp(60px,13vw,150px);
+  letter-spacing:10px;
+  font-weight:500;
+}
+
+.eyebrow{
+  color:var(--burgundy);
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  letter-spacing:3px;
+  margin-bottom:18px;
+}
+
+.welcome{
+  font-size:25px;
+  margin-top:25px;
+}
+
+.welcome-en{
+  color:var(--muted);
+  margin-top:8px;
+  font-size:16px;
+  direction:ltr;
+}
+
+.actions{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:1px solid var(--burgundy);
+  padding:13px 24px;
+  border-radius:999px;
+  cursor:pointer;
 }
 
 .primary{
@@ -87,122 +161,281 @@ button{
   color:white;
 }
 
-.logout{
+.secondary{
   background:white;
   color:var(--burgundy);
-  float:left;
 }
 
-.hidden{
-  display:none!important;
+.section{
+  max-width:1200px;
+  margin:auto;
+  padding:70px 20px;
 }
 
-.panel{
-  background:white;
-  padding:22px;
-  border-radius:22px;
-  margin-bottom:22px;
-  box-shadow:0 8px 25px rgba(0,0,0,.06);
-}
-
-.panel h2{
+.title{
+  text-align:center;
   color:var(--burgundy);
+  font-size:clamp(35px,6vw,55px);
+  font-weight:500;
+  margin:0 0 10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  font-family:Arial,sans-serif;
+  line-height:1.8;
+  margin:0 auto 40px;
+  max-width:700px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
+}
+
+.category{
+  border:0;
+  border-radius:24px;
+  min-height:180px;
+  cursor:pointer;
+  color:var(--burgundy);
+  transition:.25s;
+}
+
+.category:hover{
+  transform:translateY(-5px);
+}
+
+.category:nth-child(1){
+  background:var(--pink);
+}
+
+.category:nth-child(2){
+  background:var(--blue);
+}
+
+.category:nth-child(3){
+  background:var(--beige);
+}
+
+.category:nth-child(4){
+  background:#f0dce3;
+}
+
+.category:nth-child(5){
+  background:#e9edf3;
+}
+
+.category h3{
+  font-size:20px;
+  direction:ltr;
+}
+
+.category span{
+  font-size:30px;
+}
+
+.category p{
+  font-family:Arial,sans-serif;
+  font-size:12px;
+}
+
+.category-hero{
+  text-align:center;
+  padding:70px 20px 40px;
+  background:linear-gradient(135deg,var(--pink),var(--cream),var(--blue));
+}
+
+.category-hero h1{
+  margin:0;
+  color:var(--burgundy);
+  font-size:clamp(40px,7vw,70px);
+  font-weight:500;
+  direction:ltr;
+}
+
+.category-hero p{
+  color:var(--muted);
+  font-family:Arial,sans-serif;
 }
 
 .products{
   display:grid;
-  gap:18px;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
 }
 
 .product{
-  border:1px solid #eee;
-  border-radius:18px;
-  padding:15px;
-}
-
-.product-top{
-  display:flex;
-  gap:15px;
-  align-items:center;
-}
-
-.preview{
-  width:100px;
-  height:100px;
-  flex-shrink:0;
-  border-radius:14px;
+  background:white;
+  border-radius:22px;
   overflow:hidden;
-  background:var(--beige);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  box-shadow:0 8px 28px rgba(70,30,40,.08);
+  text-decoration:none;
+  color:inherit;
 }
 
-.preview img{
+.product-image{
+  aspect-ratio:1/1;
+  background:var(--beige);
+  overflow:hidden;
+}
+
+.product-image img{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:block;
 }
 
-.preview span{
-  color:var(--burgundy);
-  font-size:30px;
-}
-
-.product-fields{
-  flex:1;
-}
-
-.actions{
+.no-image{
+  height:100%;
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:12px;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:var(--burgundy);
+  font-family:Arial,sans-serif;
 }
 
-.save{
+.no-image span{
+  font-size:35px;
+}
+
+.product-name{
+  text-align:center;
+  padding:17px 10px;
+  font-size:17px;
+  direction:ltr;
+}
+
+.info{
+  background:var(--beige);
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.feature{
+  background:rgba(255,255,255,.7);
+  padding:28px;
+  border-radius:24px;
+}
+
+.feature h3{
+  color:var(--burgundy);
+}
+
+.feature p{
+  font-family:Arial,sans-serif;
+  line-height:2;
+  color:#51464a;
+}
+
+.order-box{
+  max-width:700px;
+  margin:auto;
+  background:white;
+  border-radius:30px;
+  padding:40px 25px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(72,33,43,.1);
+}
+
+.instagram{
+  display:inline-block;
   background:var(--burgundy);
   color:white;
+  padding:14px 25px;
+  border-radius:999px;
+  text-decoration:none;
 }
 
-.delete{
-  background:#eee;
-  color:#9b1c1c;
+footer{
+  background:var(--burgundy);
+  color:white;
+  text-align:center;
+  padding:35px 20px;
 }
 
-.add{
-  background:var(--pink);
-  color:var(--burgundy);
+footer p{
+  font-family:Arial,sans-serif;
+  opacity:.8;
 }
 
-.status{
-  margin:10px 0;
-  padding:10px;
-  border-radius:10px;
-  background:var(--beige);
+.loading{
+  text-align:center;
+  color:var(--muted);
+  font-family:Arial,sans-serif;
+  padding:30px;
 }
 
-.tabs{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
-}
+@media(max-width:900px){
 
-.tabs button{
-  background:var(--beige);
-  color:var(--burgundy);
-}
-
-@media(max-width:600px){
-
-  .product-top{
-    align-items:flex-start;
+  .categories{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .preview{
-    width:80px;
-    height:80px;
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:700px){
+
+  .menu-btn{
+    display:block;
+  }
+
+  .menu{
+    display:none;
+    position:absolute;
+    top:65px;
+    left:12px;
+    right:12px;
+    background:var(--cream);
+    border-radius:20px;
+    padding:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+    flex-direction:column;
+  }
+
+  .menu.open{
+    display:flex;
+  }
+
+  .menu button{
+    width:100%;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .section{
+    padding:55px 16px;
+  }
+
+}
+
+@media(max-width:430px){
+
+  .categories{
+    grid-template-columns:1fr;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .product-name{
+    font-size:14px;
   }
 
 }
@@ -211,181 +444,457 @@ button{
 
 </head>
 
+
 <body>
 
 <header>
 
-<h1>LENORA</h1>
+<nav class="nav">
 
-<div>ADMIN PANEL</div>
+<div
+class="logo"
+onclick="showPage('home')">
+
+LENORA
+
+</div>
+
 
 <button
-id="logoutBtn"
-class="logout hidden"
-onclick="logout()">
-Logout
+class="menu-btn"
+onclick="toggleMenu()">
+
+☰
+
 </button>
+
+
+<div
+class="menu"
+id="menu">
+
+<button
+onclick="showPage('home')">
+
+Home
+
+</button>
+
+
+<button
+onclick="showCategory('hand-chains')">
+
+Hand Chains
+
+</button>
+
+
+<button
+onclick="showCategory('bracelets')">
+
+Bracelets
+
+</button>
+
+
+<button
+onclick="showCategory('necklaces')">
+
+Necklaces
+
+</button>
+
+
+<button
+onclick="showCategory('rings')">
+
+Rings
+
+</button>
+
+
+<button
+onclick="showCategory('earrings')">
+
+Earrings
+
+</button>
+
+
+<button
+onclick="showPage('different')">
+
+What Makes LENORA Different?
+
+</button>
+
+
+<button
+onclick="showPage('order')">
+
+Order
+
+</button>
+
+</div>
+
+</nav>
 
 </header>
 
 
-<div id="loginScreen" class="login">
+<main>
 
-<h2>LENORA ADMIN</h2>
 
-<p>
-دخلي بالإيميل وكلمة المرور اللي سويتيهم في Supabase.
+<section
+id="home"
+class="page active">
+
+<div class="hero">
+
+<div>
+
+<div class="eyebrow">
+
+JEWELLERY • ELEGANCE • EVERYDAY
+
+</div>
+
+
+<h1 class="brand">
+
+LENORA
+
+</h1>
+
+
+<div class="welcome">
+
+أهلًا بكِ في لينورا 🤍
+
+</div>
+
+
+<div class="welcome-en">
+
+Welcome to LENORA 🤍
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="btn primary"
+onclick="showCategory('necklaces')">
+
+Explore Jewellery
+
+</button>
+
+
+<button
+class="btn secondary"
+onclick="showPage('different')">
+
+Discover LENORA
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2 class="title">
+
+Shop LENORA
+
+</h2>
+
+
+<p class="subtitle">
+
+اختاري مجموعتك المفضلة واكتشفي قطع لينورا الناعمة المصممة لتكون جزءًا من يومك.
+
 </p>
 
-<input
-id="email"
-type="email"
-placeholder="Email">
 
-<input
-id="password"
-type="password"
-placeholder="Password">
+<div class="categories">
 
 <button
-class="primary"
-style="width:100%"
-onclick="login()">
-Login
+class="category"
+onclick="showCategory('hand-chains')">
+
+<span>✦</span>
+
+<h3>Hand Chains</h3>
+
+<p>Explore collection</p>
+
 </button>
-
-<div id="loginMessage"></div>
-
-</div>
-
-
-<div id="adminScreen"
-class="container hidden">
-
-
-<div class="panel">
-
-<h2>إضافة منتج جديد</h2>
-
-<label>القسم</label>
-
-<select id="newCategory">
-
-<option value="hand-chains">
-Hand Chains
-</option>
-
-<option value="bracelets">
-Bracelets
-</option>
-
-<option value="necklaces">
-Necklaces
-</option>
-
-<option value="rings">
-Rings
-</option>
-
-<option value="earrings">
-Earrings
-</option>
-
-</select>
-
-
-<label>اسم المنتج</label>
-
-<input
-id="newName"
-placeholder="مثلاً Necklace 05">
-
-
-<label>صورة المنتج</label>
-
-<input
-id="newImage"
-type="file"
-accept="image/*">
 
 
 <button
-class="add"
-onclick="addProduct()">
-+ Add Product
+class="category"
+onclick="showCategory('bracelets')">
+
+<span>✧</span>
+
+<h3>Bracelets</h3>
+
+<p>Explore collection</p>
+
 </button>
 
-<div id="addStatus"></div>
+
+<button
+class="category"
+onclick="showCategory('necklaces')">
+
+<span>✦</span>
+
+<h3>Necklaces</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+
+<button
+class="category"
+onclick="showCategory('rings')">
+
+<span>✧</span>
+
+<h3>Rings</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+
+<button
+class="category"
+onclick="showCategory('earrings')">
+
+<span>✦</span>
+
+<h3>Earrings</h3>
+
+<p>Explore collection</p>
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+id="category-page"
+class="page">
+
+<div class="category-hero">
+
+<h1 id="category-title">
+
+Jewellery
+
+</h1>
+
+
+<p id="category-description">
+
+Delicate pieces made for your everyday moments.
+
+</p>
 
 </div>
 
 
-<div class="panel">
+<div class="section">
 
-<h2>المنتجات</h2>
+<div
+id="products"
+class="products">
 
-<div class="tabs">
+<div class="loading">
 
-<button onclick="loadAdminProducts('all')">
-All
-</button>
-
-<button onclick="loadAdminProducts('hand-chains')">
-Hand Chains
-</button>
-
-<button onclick="loadAdminProducts('bracelets')">
-Bracelets
-</button>
-
-<button onclick="loadAdminProducts('necklaces')">
-Necklaces
-</button>
-
-<button onclick="loadAdminProducts('rings')">
-Rings
-</button>
-
-<button onclick="loadAdminProducts('earrings')">
-Earrings
-</button>
-
-</div>
-
-<div id="adminProducts" class="products">
 Loading...
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<h2>Instagram</h2>
-
-<input
-id="instagram"
-placeholder="Instagram URL">
-
-<button
-class="save"
-onclick="saveInstagram()">
-Save Instagram
-</button>
-
-<div id="instagramStatus"></div>
 
 </div>
 
 </div>
+
+</div>
+
+</section>
+
+
+<section
+id="different"
+class="page info">
+
+<div class="section">
+
+<h1 class="title">
+
+ما الذي يميّز لينورا؟
+
+</h1>
+
+
+<p class="subtitle">
+
+What Makes Lenora Different?
+
+</p>
+
+
+<div class="features">
+
+<article class="feature">
+
+<h3>
+جودة تدوم في استخدامك اليومي
+</h3>
+
+<p>
+نختار مجوهراتنا بعناية من الستانلس ستيل ونسكب عليها طلاء الذهب، لتتحمّل روتينك اليومي وتظل محتفظة برونقها ولونها.
+</p>
+
+</article>
+
+
+<article class="feature">
+
+<h3>
+اهتمام وسرعة في التوصيل
+</h3>
+
+<p>
+ندرك قيمة وقتك وحماسك لطلبك؛ لذا نلتزم بالرد السريع وتجهيز شحنتك لتصلك بأسرع وقت ممكن.
+</p>
+
+</article>
+
+
+<article class="feature">
+
+<h3>
+رأيك محركنا الأول
+</h3>
+
+<p>
+نستمع لملاحظاتك ونحرص دائماً على تلبية تطلعاتك، لأن رضاكِ الحقيقي هو المقياس الأساسي لنشاطنا.
+</p>
+
+</article>
+
+
+<article class="feature">
+
+<h3>
+قيمة حقيقية بلا مبالغة
+</h3>
+
+<p>
+نقدم لكِ قطعاً تجمع بين جمال التصميم وعملية الاستخدام، لتكون إضافة ناعمة وموثوقة لمجموعتك اليومية.
+</p>
+
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+id="order"
+class="page">
+
+<div class="section">
+
+<div class="order-box">
+
+<h1 class="title">
+
+تفاصيل الطلب
+
+</h1>
+
+
+<p>
+
+للطلب، تواصلي معنا مباشرة عن طريق إنستقرام.
+
+</p>
+
+
+<a
+id="instagram-link"
+class="instagram"
+href="https://www.instagram.com/lenorajewellery_/"
+target="_blank"
+rel="noopener">
+
+Instagram · @lenorajewellery_
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+<div
+style="font-size:28px;letter-spacing:5px">
+
+LENORA
+
+</div>
+
+
+<p>
+
+Jewellery made for your everyday elegance ✦
+
+</p>
+
+
+<p>
+
+© 2026 LENORA. All rights reserved.
+
+</p>
+
+</footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
 
 <script>
 
 const SUPABASE_URL =
 "https://bzsaekavtectmmypvgpm.supabase.co/rest/v1/";
+
 
 const SUPABASE_KEY =
 "sb_publishable_aB5bpaLTCQGslGntrEPsDA_Owbtm3Jn";
@@ -398,618 +907,252 @@ supabase.createClient(
 );
 
 
-let currentCategory = "all";
+const INSTAGRAM_URL =
+"https://www.instagram.com/lenorajewellery_/";
 
 
-async function login(){
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  const message =
-    document.getElementById("loginMessage");
-
-  message.textContent="جاري الدخول...";
+const INSTAGRAM_USERNAME =
+"@lenorajewellery_";
 
 
-  const {error} =
-    await db.auth.signInWithPassword({
-      email,
-      password
+const categories = {
+
+  "hand-chains":{
+    title:"Hand Chains",
+    description:
+    "Delicate pieces made for your everyday moments."
+  },
+
+  "bracelets":{
+    title:"Bracelets",
+    description:
+    "Elegant bracelets for every day."
+  },
+
+  "necklaces":{
+    title:"Necklaces",
+    description:
+    "Soft details that complete your look."
+  },
+
+  "rings":{
+    title:"Rings",
+    description:
+    "Minimal, elegant pieces for every occasion."
+  },
+
+  "earrings":{
+    title:"Earrings",
+    description:
+    "Little details, effortless elegance."
+  }
+
+};
+
+
+function toggleMenu(){
+
+  document
+    .getElementById("menu")
+    .classList.toggle("open");
+
+}
+
+
+function hideAll(){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page=>{
+
+      page.classList.remove("active");
+
     });
 
+}
 
-  if(error){
 
-    message.textContent =
-      "الإيميل أو كلمة المرور غير صحيحة.";
+function showPage(id){
 
-    return;
+  hideAll();
+
+  const page =
+    document.getElementById(id);
+
+  if(page){
+
+    page.classList.add("active");
+
   }
-
-
-  showAdmin();
-
-}
-
-
-async function logout(){
-
-  await db.auth.signOut();
-
-  location.reload();
-
-}
-
-
-function showAdmin(){
 
   document
-    .getElementById("loginScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("adminScreen")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("logoutBtn")
-    .classList.remove("hidden");
-
-  loadAdminProducts("all");
-
-  loadInstagram();
-
-}
-
-
-async function checkSession(){
-
-  const {
-    data
-  } = await db.auth.getSession();
-
-  if(data.session){
-
-    showAdmin();
-
-  }
-
-}
-
-
-async function uploadImage(file){
-
-  if(!file) return "";
-
-  const extension =
-    file.name.split(".").pop();
-
-  const filename =
-    crypto.randomUUID() +
-    "." +
-    extension;
-
-  const path =
-    filename;
-
-
-  const {
-    error
-  } = await db.storage
-    .from("product-images")
-    .upload(path,file,{
-      cacheControl:"3600",
-      upsert:false
-    });
-
-
-  if(error){
-
-    console.error(error);
-
-    throw new Error(
-      "الصورة ما ترفعت."
-    );
-
-  }
-
-
-  const {
-    data
-  } = db.storage
-    .from("product-images")
-    .getPublicUrl(path);
-
-
-  return data.publicUrl;
-
-}
-
-
-async function addProduct(){
-
-  const category =
-    document.getElementById("newCategory").value;
-
-  const name =
-    document.getElementById("newName").value.trim();
-
-  const file =
-    document.getElementById("newImage").files[0];
-
-  const status =
-    document.getElementById("addStatus");
-
-
-  if(!name){
-
-    status.textContent =
-      "اكتبي اسم المنتج أول.";
-
-    return;
-  }
-
-
-  status.textContent =
-    "جاري الإضافة...";
-
-
-  try{
-
-    let imageUrl = "";
-
-    if(file){
-      imageUrl =
-        await uploadImage(file);
-    }
-
-
-    const {
-      data:existing
-    } = await db
-      .from("products")
-      .select("sort_order")
-      .eq("category",category)
-      .order("sort_order",{
-        ascending:false
-      })
-      .limit(1);
-
-
-    const nextOrder =
-      existing && existing.length
-      ? Number(existing[0].sort_order)+1
-      : 1;
-
-
-    const {
-      error
-    } = await db
-      .from("products")
-      .insert({
-        category,
-        name,
-        image_url:imageUrl,
-        sort_order:nextOrder,
-
-        /* Instagram الصحيح */
-        link:"https://www.instagram.com/lenorajewellery_/"
-
-      });
-
-
-    if(error){
-      throw error;
-    }
-
-
-    status.textContent =
-      "تمت إضافة المنتج 🤍";
-
-
-    document.getElementById("newName").value="";
-    document.getElementById("newImage").value="";
-
-    loadAdminProducts(currentCategory);
-
-
-  }catch(error){
-
-    console.error(error);
-
-    status.textContent =
-      "صار خطأ أثناء الإضافة.";
-
-  }
-
-}
-
-
-async function loadAdminProducts(category){
-
-  currentCategory = category;
-
-  const container =
-    document.getElementById("adminProducts");
-
-  container.innerHTML =
-    "Loading...";
-
-
-  let query =
-    db
-      .from("products")
-      .select("*")
-      .order("category")
-      .order("sort_order");
-
-
-  if(category !== "all"){
-
-    query =
-      query.eq("category",category);
-
-  }
-
-
-  const {
-    data,
-    error
-  } = await query;
-
-
-  if(error){
-
-    container.innerHTML =
-      "Unable to load products.";
-
-    console.error(error);
-
-    return;
-  }
-
-
-  container.innerHTML="";
-
-
-  if(!data.length){
-
-    container.innerHTML =
-      "No products.";
-
-    return;
-  }
-
-
-  data.forEach(product=>{
-
-    const div =
-      document.createElement("div");
-
-    div.className="product";
-
-
-    div.innerHTML = `
-
-      <div class="product-top">
-
-        <div class="preview">
-
-          ${
-            product.image_url
-
-            ? `<img src="${escapeHTML(product.image_url)}">`
-
-            : `<span>✦</span>`
-          }
-
-        </div>
-
-
-        <div class="product-fields">
-
-          <label>اسم المنتج</label>
-
-          <input
-            id="name-${product.id}"
-            value="${escapeHTML(product.name)}">
-
-          <label>القسم</label>
-
-          <select id="category-${product.id}">
-
-            ${categoryOption(
-              "hand-chains",
-              "Hand Chains",
-              product.category
-            )}
-
-            ${categoryOption(
-              "bracelets",
-              "Bracelets",
-              product.category
-            )}
-
-            ${categoryOption(
-              "necklaces",
-              "Necklaces",
-              product.category
-            )}
-
-            ${categoryOption(
-              "rings",
-              "Rings",
-              product.category
-            )}
-
-            ${categoryOption(
-              "earrings",
-              "Earrings",
-              product.category
-            )}
-
-          </select>
-
-        </div>
-
-      </div>
-
-
-      <div class="actions">
-
-        <label class="add">
-          Change Image
-
-          <input
-            id="file-${product.id}"
-            type="file"
-            accept="image/*"
-            style="display:none">
-
-        </label>
-
-
-        <button
-          class="save"
-          onclick="saveProduct('${product.id}')">
-          Save
-        </button>
-
-
-        <button
-          class="delete"
-          onclick="deleteProduct('${product.id}')">
-          Delete
-        </button>
-
-      </div>
-
-      <div id="status-${product.id}"></div>
-
-    `;
-
-
-    container.appendChild(div);
-
+    .getElementById("menu")
+    .classList.remove("open");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
   });
 
 }
 
 
-function categoryOption(
-  value,
-  label,
-  selected
-){
+async function showCategory(category){
 
-  return `
-    <option
-      value="${value}"
-      ${value===selected ? "selected":""}>
-      ${label}
-    </option>
-  `;
+  hideAll();
 
-}
+  const page =
+    document.getElementById("category-page");
 
+  page.classList.add("active");
 
-async function saveProduct(id){
+  document
+    .getElementById("menu")
+    .classList.remove("open");
 
-  const name =
-    document.getElementById(
-      `name-${id}`
-    ).value.trim();
+  const info =
+    categories[category];
 
+  document
+    .getElementById("category-title")
+    .textContent =
+    info.title;
 
-  const category =
-    document.getElementById(
-      `category-${id}`
-    ).value;
+  document
+    .getElementById("category-description")
+    .textContent =
+    info.description;
 
+  await loadProducts(category);
 
-  const file =
-    document.getElementById(
-      `file-${id}`
-    ).files[0];
-
-
-  const status =
-    document.getElementById(
-      `status-${id}`
-    );
-
-
-  status.textContent =
-    "Saving...";
-
-
-  try{
-
-    const update = {
-      name,
-      category,
-
-      /* Instagram الصحيح */
-      link:"https://www.instagram.com/lenorajewellery_/"
-
-    };
-
-
-    if(file){
-
-      update.image_url =
-        await uploadImage(file);
-
-    }
-
-
-    const {
-      error
-    } = await db
-      .from("products")
-      .update(update)
-      .eq("id",id);
-
-
-    if(error){
-      throw error;
-    }
-
-
-    status.textContent =
-      "Saved ✓";
-
-
-    setTimeout(()=>{
-      loadAdminProducts(currentCategory);
-    },500);
-
-
-  }catch(error){
-
-    console.error(error);
-
-    status.textContent =
-      "حدث خطأ أثناء الحفظ.";
-
-  }
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
-async function deleteProduct(id){
+async function loadProducts(category){
 
-  const confirmDelete =
-    confirm(
-      "متأكدة تبين تحذفين هالمنتج؟"
-    );
+  const container =
+    document.getElementById("products");
 
+  container.innerHTML =
+    '<div class="loading">Loading...</div>';
 
-  if(!confirmDelete) return;
-
-
-  const {
-    error
-  } = await db
-    .from("products")
-    .delete()
-    .eq("id",id);
-
-
-  if(error){
-
-    alert(
-      "ما قدرنا نحذف المنتج."
-    );
-
-    console.error(error);
-
-    return;
-  }
-
-
-  loadAdminProducts(currentCategory);
-
-}
-
-
-async function loadInstagram(){
 
   const {
     data,
     error
-  } = await db
-    .from("site_settings")
-    .select("*")
-    .eq("key","instagram")
-    .maybeSingle();
-
-
-  if(!error && data){
-
-    document
-      .getElementById("instagram")
-      .value=data.value;
-
-  }else{
-
-    document
-      .getElementById("instagram")
-      .value="https://www.instagram.com/lenorajewellery_/";
-
-  }
-
-}
-
-
-async function saveInstagram(){
-
-  let value =
-    document
-      .getElementById("instagram")
-      .value.trim();
-
-
-  /* إذا تركتيه فاضي، نستخدم حساب LENORA الصحيح */
-  if(!value){
-    value =
-      "https://www.instagram.com/lenorajewellery_/";
-  }
-
-
-  const {
-    error
-  } = await db
-    .from("site_settings")
-    .upsert({
-      key:"instagram",
-      value
-    });
-
-
-  const status =
-    document.getElementById(
-      "instagramStatus"
-    );
+  } =
+    await db
+      .from("products")
+      .select("*")
+      .eq("category",category)
+      .order(
+        "sort_order",
+        {ascending:true}
+      );
 
 
   if(error){
 
-    status.textContent =
-      "صار خطأ.";
+    container.innerHTML =
+      '<div class="loading">Unable to load products.</div>';
 
     console.error(error);
 
-  }else{
-
-    status.textContent =
-      "تم الحفظ ✓";
+    return;
 
   }
+
+
+  if(!data || data.length === 0){
+
+    container.innerHTML =
+      '<div class="loading">No products yet.</div>';
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  data.forEach(product=>{
+
+    const card =
+      document.createElement("a");
+
+
+    card.className =
+      "product";
+
+
+    card.href =
+      product.link ||
+      INSTAGRAM_URL;
+
+
+    card.target =
+      "_blank";
+
+
+    card.rel =
+      "noopener";
+
+
+    let imageHTML = "";
+
+
+    if(product.image_url){
+
+      imageHTML =
+        `<img
+          src="${escapeHTML(product.image_url)}"
+          alt="${escapeHTML(product.name)}">`;
+
+    }else{
+
+      imageHTML = `
+
+        <div class="no-image">
+
+          <span>✦</span>
+
+          <small>
+            Coming Soon
+          </small>
+
+        </div>
+
+      `;
+
+    }
+
+
+    card.innerHTML = `
+
+      <div class="product-image">
+
+        ${imageHTML}
+
+      </div>
+
+      <div class="product-name">
+
+        ${escapeHTML(product.name)}
+
+      </div>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
 
 }
 
@@ -1017,18 +1160,63 @@ async function saveInstagram(){
 function escapeHTML(value){
 
   return String(value ?? "")
+
     .replace(/&/g,"&amp;")
+
     .replace(/</g,"&lt;")
+
     .replace(/>/g,"&gt;")
+
     .replace(/"/g,"&quot;")
+
     .replace(/'/g,"&#039;");
 
 }
 
 
-checkSession();
+async function loadSettings(){
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("site_settings")
+      .select("*")
+      .eq("key","instagram")
+      .maybeSingle();
+
+
+  const link =
+    document.getElementById(
+      "instagram-link"
+    );
+
+
+  if(!error && data && data.value){
+
+    link.href =
+      data.value;
+
+  }else{
+
+    link.href =
+      INSTAGRAM_URL;
+
+  }
+
+
+  link.textContent =
+    "Instagram · " +
+    INSTAGRAM_USERNAME;
+
+}
+
+
+loadSettings();
 
 </script>
 
 </body>
+
 </html>
