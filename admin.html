@@ -1025,28 +1025,6 @@ function escapeHTML(value){
 
 }
 
-
-supabase.auth.onAuthStateChange(async (event, session) => {
-
-  if (event === "PASSWORD_RECOVERY") {
-
-    const newPassword = prompt("اكتبي كلمة المرور الجديدة:");
-
-    if (!newPassword) return;
-
-    const { error } = await db.auth.updateUser({
-      password: newPassword
-    });
-
-    if (error) {
-      alert("صار خطأ: " + error.message);
-    } else {
-      alert("تم تغيير كلمة المرور بنجاح 🤍");
-    }
-  }
-
-});
-
 checkSession();
 
 </script>
