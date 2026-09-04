@@ -893,17 +893,14 @@ Jewellery made for your everyday elegance ✦
 <script>
 
 const SUPABASE_URL =
-"https://bzsaekavtectmmypvgpm.supabase.co/rest/v1/";
-
-
+  "https://bzsaekavtectmmypvgpm.supabase.co";
+  
 const SUPABASE_KEY =
-"sb_publishable_aB5bpaLTCQGslGntrEPsDA_Owbtm3Jn";
-
-
-const db =
-supabase.createClient(
-  https://bzsaekavtectmmypvgpm.supabase.co/rest/v1/,
-  sb_publishable_aB5bpaLTCQGslGntrEPsDA_Owbtm3Jn
+  "sb_publishable_aB5bpaLTCQGslGntrEPsDA_Owbtm3Jn";
+  
+const db = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
 
